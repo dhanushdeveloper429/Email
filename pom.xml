@@ -48,6 +48,11 @@
 			<artifactId>guice</artifactId>
 			<version>3.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.main.email</groupId>
+			<artifactId>Email</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

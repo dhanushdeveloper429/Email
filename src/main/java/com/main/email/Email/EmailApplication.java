@@ -1,8 +1,15 @@
 package com.main.email.Email;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 @SpringBootApplication
 public class EmailApplication implements CommandLineRunner {
@@ -12,14 +19,21 @@ public class EmailApplication implements CommandLineRunner {
 		SpringApplication.run(EmailApplication.class, args);
 	}
 
+	@Autowired
+	EmailServiceImpl emailService;
+
 	@Override
 	public void run(String... args) {
 
 		System.out.println("Sending Email...");
-		EmailEntity emailEntity = new EmailEntity();
-		emailEntity.sendEmail();
+		EmailConfig emailEntity = new EmailConfig();
+		//emailEntity.registerSession();
 		//sendEmailWithAttachment();
-		System.out.println("Done");
+		emailEntity.registerSession();
+			emailService.sendMsg(new Email("Unable to establish the Hbase configuration","Hello"));
+
+
+
 
 	}
 }
