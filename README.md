@@ -15,6 +15,9 @@ allow less secure apps in G-mail support.
 ## Author
 Dhanush
 Software Engineer
-Mobile: +4083408287
-E-mail: dhanushdeveloper.java@gmail.com
-Skype: dhanushka.c
+
+<br>
+**Mobile**: +4087537839 
+**E-mail**: dhanushdeveloper.java@gmail.com  
+**Skype**: dhanushka.c  
+ 
