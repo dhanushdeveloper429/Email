@@ -1,5 +1,4 @@
 ##Spring Boot Gmail configuration.
-
 e-mails with Spring Boot and Java Mail Sender.
 
 Running the project
