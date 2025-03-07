@@ -1,23 +1,46 @@
-# Spring Boot Gmail configuration.
+private static void writeTemplateData(Sheet sheet, AttestationHierarchicalTemplate template, AtomicInteger rowIndex) {
+    Row row = sheet.createRow(rowIndex.getAndIncrement());
 
-Sending e-mails with Spring Boot and Java Mail Sender.
+    Cell controlTypeCell = row.createCell(12);
+    
+    // Skip processing if it is a child of "TEXTBOX"
+    if (isChildOfTextBox(template)) {
+        return; // Skip updating
+    }
 
-## Running the project
+    if (template.getControlType().equalsIgnoreCase("textbox")) {
+        // Continue to processing if TEXTBOX itself
+    } else if (template.getControlType().equalsIgnoreCase("display")) {
+        controlTypeCell.setCellValue("Display");
+    } else if (template.getControlType().equalsIgnoreCase("CHECKBOX") && !template.getChildren().isEmpty()) {
+        for (AttestationHierarchicalTemplate child : template.getChildren()) {
+            if (child.getControlType().equalsIgnoreCase("textbox")) {
+                controlTypeCell.setCellValue("Check Box (Bounded)");
+                break;
+            }
+        }
+    } else {
+        controlTypeCell.setCellValue(template.getControlType());
+    }
 
-1. Open terminal, navigate to your project
-2. Type command **mvn clean install**
-3. Type command **mvn spring-boot:run**
+    Cell controlTypeCell13 = row.createCell(11);
+    controlTypeCell13.setCellValue(rowIndex.get());
 
+    Cell controlTypeCell12 = row.createCell(10);
+    controlTypeCell12.setCellValue(template.getControlType());
 
-**NOTE:** If you are using G-mail as your mail provided for sending e-mails make sure you
-allow less secure apps in G-mail support.
+    Cell controlTypeCell14 = row.createCell(9);
+    controlTypeCell14.setCellValue(template.getIdentifier()); // column K
+}
 
-## Author
-Dhanush
-Software Engineer
-
-<br>
-**Mobile**: +4087537839 
-**E-mail**: dhanushdeveloper.java@gmail.com  
-**Skype**: dhanushka.c  
- 
+// Helper function to check if the element is a child of TEXTBOX
+private static boolean isChildOfTextBox(AttestationHierarchicalTemplate template) {
+    AttestationHierarchicalTemplate parent = template.getParent();
+    while (parent != null) {
+        if (parent.getControlType().equalsIgnoreCase("textbox")) {
+            return true; // It is a child of a TEXTBOX
+        }
+        parent = parent.getParent();
+    }
+    return false;
+}
